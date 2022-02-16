@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Online Bookstore - Home";
+}
+@model BooksViewModel
+    <!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex justify-cntent-center align-items-center">
+    <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <div class="carousel-container">
+                <h2 class="animate__animated animate__fadeInDown"><span>Online Bookstore</span></h2>
+                <p class="animate__animated animate__fadeInUp">View our collection of books.</p>
+                <a href="#booklist" class="btn-get-started animate__animated animate__fadeInUp">See Our List</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ======= End Hero Section ======= -->
+
+<!-- ======= Main Content ======= -->
+<div class="row m-1 p-1">
+    <!--Left Side Column -->
+    <div class="col-3">
+        <p>Potential Side Menu can go here.</p>
+    </div>
+
+    <!-- Main Column w/ Book Info -->
+    <div id="booklist" class="col-9">
+        @foreach (Book b in Model.Books)
+        {
+            <div class="card">
+                <h3>Book Name: @b.Title</h3>
+                <ul>
+                    <li><strong>Author:</strong> @b.Author</li>
+                    <li><strong>Publisher:</strong> @b.Publisher</li>
+                    <li><strong>ISBN:</strong> @b.Isbn</li>
+                    <li><strong>Classification/Category:</strong> @b.Classification</li>
+                    <li><strong>Number of Pages:</strong> @b.PageCount</li>
+                    <li><strong>Price:</strong> $@b.Price</li>
+                </ul>
+            </div>
+        }
+
+        <!--Pagination-->
+        <div page-number="@Model.PageInfo" page-action="Index"></div>
+    </div>
+</div>
