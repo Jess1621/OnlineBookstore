@@ -1,0 +1,34 @@
+﻿@{
+}
+
+@model Book
+
+<div class="card">
+    <div class="p-1">
+        <h3><strong>Book:</strong> @Model.Title</h3>
+
+        <span class="badge bg-info" style="float:right">
+            <h6>Price: $@Model.Price</h6>
+        </span>
+
+    </div>
+
+    <ul>
+        <li><strong>Author:</strong> @Model.Author</li>
+        <li><strong>Publisher:</strong> @Model.Publisher</li>
+        <li><strong>ISBN:</strong> @Model.Isbn</li>
+        <li><strong>Classification:</strong> @Model.Classification</li>
+        <li><strong>Category:</strong> @Model.Category</li>
+        <li><strong>Number of Pages:</strong> @Model.PageCount</li>
+    </ul>
+
+    <!--Using a form so we can pass along information when someone hits the Buy Button-->
+    <form method="post" asp-page="/purchase">
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end">Buy Now</button>
+        </span>
+    </form>
+</div>
