@@ -5,7 +5,10 @@
     {
       "library": "bootstrap@5.1.3",
       "destination": "wwwroot/lib/"
+    },
+    {
+      "library": "font-awesome@5.12.0",
+      "destination": "wwwroot/lib/font-awesome"
     }
-
   ]
 }

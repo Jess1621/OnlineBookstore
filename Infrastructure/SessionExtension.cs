@@ -14,9 +14,9 @@ namespace OnlineBookstore.Infrastructure
             session.SetString(key, JsonSerializer.Serialize(value));
         }
 
-        public static T GetJson<T>(this ISession sesion, string key)
+        public static T GetJson<T>(this ISession session, string key)
         {
-            var sessionData = sesion.GetString(key);
+            var sessionData = session.GetString(key);
 
             return sessionData == null ? default(T) : JsonSerializer.Deserialize<T>(sessionData);
         }

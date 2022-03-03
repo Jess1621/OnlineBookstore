@@ -15,6 +15,9 @@
     <link href="~/lib/css/animate.css" rel="stylesheet" />
     <link href="~/lib/css/bootstrap.css" rel="stylesheet" />
 
+    <!--Font Awesome Files-->
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+
     <!-- Main CSS File -->
     <link href="~/css/Style.css" rel="stylesheet" />
 
@@ -32,12 +35,14 @@
                 <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
 
-            <nav id="navbar" class="navbar">
+            <!--<nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="active " asp-controller="Home" asp-action="Index">Home</a></li>
-                 </ul>
-            </nav><!-- End navbar -->
-
+                </ul>
+            </nav>--><!-- End navbar -->
+            <div class="col-3 text-right text-white">
+                <vc:cart-summary />
+            </div>
         </div>
     </header><!-- End Header -->
 

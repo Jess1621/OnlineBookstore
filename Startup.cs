@@ -37,7 +37,11 @@ namespace OnlineBookstore
                options.UseSqlite(Configuration["ConnectionStrings:BookDBConnection"]);
            });
 
+            //Allows us to use the bookstore repository
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+
+            //Allows us to use the purchase repository
+            services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
 
             //To be able to use Razor Pages
             services.AddRazorPages();
@@ -45,6 +49,9 @@ namespace OnlineBookstore
             //Creates Sessions
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
