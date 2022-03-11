@@ -2144,10 +2144,10 @@ transition: 0.3s;
 # Footer
 --------------------------------------------------------------*/
 #footer {
-background: #0b212d;
-padding: 0 0 30px 0;
-color: #fff;
-font-size: 14px;
+    background-image: linear-gradient(to right, #3a7bd5, #3a6073); 
+    padding: 0 0 30px 0;
+    color: #fff;
+    font-size: 14px;
 }
 
 #footer .footer-newsletter {

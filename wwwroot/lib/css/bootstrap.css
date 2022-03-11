@@ -2067,6 +2067,7 @@ progress {
     --bs-table-hover-color: #000;
     color: #000;
     border-color: #bacbe6;
+    box-shadow: 5px 5px 12px rgba(0,0,0,.3);
 }
 
 .table-secondary {
@@ -3465,12 +3466,21 @@ textarea.form-control-lg {
 .btn-outline-secondary {
     color: #6c757d;
     border-color: #6c757d;
+    color: white;
+    border-color: #68A4C4;
+    background: #68A4C4;
+    box-shadow: 6px 8px 12px rgb(0 0 0 / 35%);
+    transform: translateY(-5px);
+    transition: transform .8s;
+    margin-bottom: 8px;
 }
 
     .btn-outline-secondary:hover {
-        color: #fff;
-        background-color: #6c757d;
-        border-color: #6c757d;
+        color: #68A4C4;
+        background-color: #fff;
+        border-color: #68A4C4;
+        transform: translateY(0px);
+        box-shadow: none;
     }
 
     .btn-check:focus + .btn-outline-secondary, .btn-outline-secondary:focus {
@@ -4876,7 +4886,6 @@ textarea.form-control-lg {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
@@ -4884,6 +4893,12 @@ textarea.form-control-lg {
     margin-bottom: 25px;
     box-shadow: rgba(0, 0, 0, 0.35) 5px 8px 15px;
     background-color: #f5fcff;
+    transition: transform .8s;
+}
+
+.card:hover {
+    transform: translateY(5px);
+    box-shadow: none;
 }
 
     .card > hr {
@@ -11888,4 +11903,14 @@ textarea.form-control-lg {
     }
 }
 
+tr:hover{
+    background-color: rgba(222,222,222,.6);
+}
+
+.admin-area {
+    background: #f5fcff;
+    box-shadow: 8px 12px 15px rgb(0 0 0 / 30%);
+    border-radius: 2px;
+    overflow: hidden;
+}
 /*# sourceMappingURL=bootstrap.css.map */

@@ -1,0 +1,117 @@
+﻿@page "/admin/Books/edit/{id:long}"
+@page "/admin/Books/create"
+@inherits OwningComponentBase<IBookstoreRepository>
+
+<style>
+    div.validation-message {
+        color: rgb(220,53,69);
+        font-weight: 500
+    }
+</style>
+
+<h3 class="bg-@ThemeColor text-white text-center p-1">@TitleText a Book </h3>
+
+<EditForm Model="b" OnValidSubmit="SaveBook">
+
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="form-group">
+        <label>Book Id</label>
+        <input class="form-control" disabled value="@b.BookId" />
+    </div>
+
+    <div class="form-group">
+        <label>Title:</label>
+        <ValidationMessage For="@(() => b.Title)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Title"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>Author:</label>
+        <ValidationMessage For="@(() => b.Author)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Author"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>Publisher:</label>
+        <ValidationMessage For="@(() => b.Publisher)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Publisher"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>ISBN:</label>
+        <ValidationMessage For="@(() => b.Isbn)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Isbn"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>Classification:</label>
+        <ValidationMessage For="@(() => b.Classification)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Classification"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>Category:</label>
+        <ValidationMessage For="@(() => b.Category)"></ValidationMessage>
+        <InputText class="form-control" @bind-Value="b.Category"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label>Page Count:</label>
+        <ValidationMessage For="@(() => b.PageCount)"></ValidationMessage>
+        <InputNumber class="form-control" @bind-Value="b.PageCount"></InputNumber>
+    </div>
+
+    <div class="form-group">
+        <label>Price:</label>
+        <ValidationMessage For="@(() => b.Price)"></ValidationMessage>
+        <InputNumber class="form-control" @bind-Value="b.Price"></InputNumber>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-@ThemeColor">Save</button>
+
+    <NavLink class="btn btn-secondary" href="/admin/books">Cancel</NavLink>
+
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public long Id { get; set; } = 0;
+
+    //Makes the validation message dynamic depending on what's passed in
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    //Makes TitleText in the h3 tag dynamic depending on what's passed in.
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+
+    public Book b { get; set; } = new Book();
+
+    public IBookstoreRepository repo => Service;
+
+    protected override void OnParametersSet()
+    {
+        if (Id != 0) //Existing Project
+        {
+            b = repo.Books.FirstOrDefault(x => x.BookId == Id);
+        }
+    }
+
+    //The scope of this is just what's on this page.
+    public void SaveBook()
+    {
+        if (Id == 0) //New Project
+        {
+            repo.CreateBook(b);
+        }
+        else
+        {
+            repo.SaveBook(b);
+        }
+
+        NavManager.NavigateTo("/admin/books");
+    }
+
+    [Inject]
+    public NavigationManager NavManager { get; set; }
+}

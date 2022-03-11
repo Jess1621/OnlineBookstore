@@ -33,5 +33,9 @@ namespace OnlineBookstore.Models
 
         [Required(ErrorMessage = "Please enter a country")]
         public string Country { get; set; }
+
+        //To know if the book has been shipped
+        [BindNever]
+        public bool Shipped { get; set; } = false;
     }
 }

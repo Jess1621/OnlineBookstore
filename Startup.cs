@@ -52,6 +52,9 @@ namespace OnlineBookstore
 
             services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //To use Blazor Pages
+            services.AddServerSideBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +96,10 @@ namespace OnlineBookstore
 
                 //Endpoint for Razor Pages
                 endpoints.MapRazorPages();
+
+                //Endpoints for Blazor Pages
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
         }
     }

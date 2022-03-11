@@ -1,0 +1,86 @@
+﻿<!--URL To get to this page-->
+@page "/admin/books"
+@page "/admin"
+
+@inherits OwningComponentBase<IBookstoreRepository>
+
+<table class="table table-sm table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Book Title</th>
+            <th>Book Author</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @if (BookData?.Count() > 0)
+        {
+            //List the Books
+            @foreach (Book b in BookData)
+            {
+                <tr>
+                    <td>@b.BookId</td>
+                    <td>@b.Title</td>
+                    <td>@b.Author</td>
+
+                    <td>
+                        <NavLink class="btn btn-info btn-sm" href="@GetDetailsUrl(b.BookId)">Details</NavLink>
+                    </td>
+
+                    <td>
+                        <NavLink class="btn btn-warning btn-sm" href="@GetEditUrl(b.BookId)">Edit</NavLink>
+                    </td>
+
+                    <!--Delete Button -- Doesn't need to use NavLink since it isn't taking you anywhere when you delete-->
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="@(x => RemoveBook(b))">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Books</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<NavLink class="btn btn-primary" href="/admin/books/create">Create</NavLink>
+
+
+@code {
+
+    public IBookstoreRepository repo => Service;
+
+    public IEnumerable<Book> BookData { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        BookData = await repo.Books.ToListAsync();
+    }
+
+    //Will pass in the details via the slug
+    //Additional Info will be in Details.razor page to make these work.
+    public string GetDetailsUrl(long id) => $"/admin/books/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/books/edit/{id}";
+
+
+    //For deleting a project
+    public async Task RemoveBook(Book b)
+    {
+        repo.DeleteBook(b);
+        await UpdateData();
+    }
+}

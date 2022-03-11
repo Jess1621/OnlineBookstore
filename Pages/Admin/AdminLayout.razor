@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+
+<!--Creates the general look of the admin section of the site-->
+<div class="bg-info text-white p-2 admin-area">
+    <span class="navbar-brand m-lg-2">Online Bookstore Administration</span>
+</div>
+
+<div class="container-fluid admin-area">
+    <div class="row p-2">
+        <div class="col-3">
+            <div class="d-grid gap-2">
+
+                <NavLink class="btn btn-outline-primary" href="/admin/books"
+                         ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">Books</NavLink>
+
+                <NavLink class="btn btn-outline-primary" href="/admin/purchases"
+                         ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">Purchases</NavLink>
+            </div>
+        </div>
+
+        <div class="col">
+            @Body
+        </div>
+    </div>
+</div>
