@@ -3,50 +3,65 @@
 @{
 }
 
-<h2>Your Cart</h2>
-
-<table class="table table-bordered table-striped">
-
-    <thead>
-        <tr>
-            <th>Items</th>
-            <th>Quantity</th>
-            <th>Cost</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var i in Model.basket.Items)
-        {
-            <tr>
-                <td>@i.Book.Title</td>
-                <td>@i.Quantity</td>
-                <td>@i.Book.Price</td>
-                <td>@(i.Quantity * i.Book.Price)</td>
-
-                <!--Delete/Remove button-->
-                <td class="text-center">
-                    <form method="post" asp-page-handler="Remove">
-                        <input type="hidden" name="bookId" value="@i.Book.BookId" />
-                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-
-    <tfoot>
-        <tr>
-            <td colspan="3">Total:</td>
-            <!--Converts it to a string with a currency format-->
-            <td>@Model.basket.CalculateTotal().ToString("c")</td>
-        </tr>
-    </tfoot>
-</table>
-
-<div>
-    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
-    <a class="btn btn-primary" asp-controller="Purchase" asp-action="Checkout">Checkout</a>
+<!--Progress Bar-->
+<div class="timeline card-timeline px-2 border-none">
+    <ul class="bs4-order-tracking">
+        <li class="step active">
+            <div><i class="fa fa-shopping-cart"></i></div> Review Order
+        </li>
+        <li class="step">
+            <div><i class="fa fa-pencil-alt"></i></div> Fill Out Info
+        </li>
+        <li class="step">
+            <div><i class="fa fa-money-bill-alt"></i></div> Complete Purchase
+        </li>
+    </ul>
 </div>
+
+    <h2>Your Cart</h2>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <th>Items</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var i in Model.basket.Items)
+            {
+                <tr>
+                    <td>@i.Book.Title</td>
+                    <td>@i.Quantity</td>
+                    <td>@i.Book.Price</td>
+                    <td>@(i.Quantity * i.Book.Price)</td>
+
+                    <!--Delete/Remove button-->
+                    <td class="text-center">
+                        <form method="post" asp-page-handler="Remove">
+                            <input type="hidden" name="bookId" value="@i.Book.BookId" />
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3">Total:</td>
+                <!--Converts it to a string with a currency format-->
+                <td>@Model.basket.CalculateTotal().ToString("c")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div>
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+        <a class="btn btn-primary" asp-controller="Purchase" asp-action="Checkout">Checkout</a>
+    </div>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace OnlineBookstore
             //Tells it to use the MVC Setup
             services.AddControllersWithViews();
 
-            //Connect to the Database
+            //Connect to the Bookstore Database
             services.AddDbContext<BookstoreContext>(options =>
            {
                options.UseSqlite(Configuration["ConnectionStrings:BookDBConnection"]);
@@ -39,9 +40,18 @@ namespace OnlineBookstore
 
             //Allows us to use the bookstore repository
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
-
             //Allows us to use the purchase repository
             services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
+
+
+            //Connect to the Identity Database
+            services.AddDbContext<AppIdentityDBContext>(options =>
+                options.UseSqlite(Configuration["ConnectionStrings:IdentityConnection"]));
+            
+            //Sets up a User Identity and Role
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDBContext>();
+
 
             //To be able to use Razor Pages
             services.AddRazorPages();
@@ -70,6 +80,12 @@ namespace OnlineBookstore
             //Using Sessions
             app.UseSession();
             app.UseRouting();
+
+
+            //User Authentication and Authorization (Middleware)
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -101,6 +117,10 @@ namespace OnlineBookstore
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
+
+            //Wanting to call the class directly from IdentitySeedData.cs
+            IdentitySeedData.EnsurePopulated(app);
+
         }
     }
 }

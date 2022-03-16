@@ -58,6 +58,23 @@
                     <a href="#booklist" class="btn-get-started animate__animated animate__fadeInUp">See Our List</a>
                 </div>
             </div>
+
+            <div class="carousel-item">
+                <div class="carousel-container">
+                    <h2 class="animate__animated animate__fadeInDown">Check This Out!</h2>
+                    <p class="animate__animated animate__fadeInUp">Browse our selection of books, View Your Cart, and Checkout.</p>
+                    <a asp-page="/Purchase" asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()" 
+                       class="btn-get-started animate__animated animate__fadeInUp">View Your Cart</a>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon about fa fa-arrow-left" aria-hidden="true"></span>
+            </a>
+
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon fa fa-arrow-right" aria-hidden="true"></span>
+            </a>
         </div>
     </section>
     <!-- ======= End Hero Section ======= -->
